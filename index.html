@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RAM Overload Test</title>
+    <title>RAM Overload Sleep Test</title>
     <style>
         body { background-color: black; color: white; font-size: 2em; text-align: center; padding-top: 20%; }
     </style>
@@ -15,10 +15,21 @@
             let arr = [];
             try {
                 while (true) {
-                    arr.push(new Array(1000000).fill("A")); // Remplit la mémoire
+                    arr.push(new Array(10000000).fill("A")); // Remplit la mémoire progressivement
+                    if (arr.length > 100) {
+                        document.getElementById("message").innerText = "Warning: Almost at memory limit!";
+                    }
                 }
             } catch (e) {
-                document.getElementById("message").innerText = "Hello World";
+                document.getElementById("message").innerText = "Entering sleep mode...";
+                // Essayer de forcer un changement de focus pour simuler une mise en veille
+                window.blur();
+                setTimeout(() => {
+                    window.focus();
+                }, 1000);  // Redonne le focus après 1s
+                setTimeout(() => {
+                    document.getElementById("message").innerText = "Switch should now be in sleep mode!";
+                }, 2000);  // Attendre avant de montrer un message
             }
         }
         setTimeout(overloadRAM, 1000); // Démarre après 1s
